@@ -17,11 +17,8 @@ def call(String unityVersion, String mode, String platform) {
     -testPlatform ${mode} \
     -testResults Reports/${platform}-${mode}Tests.xml \
     -forgetProjectPath \
-    -logFile Logs/${platform}-${mode}.log \
+    -logFile Logs/tests-${platform}-${mode}.log \
     -projectPath .
     """
-//    sh "${unityPath} -runTests -batchmode -buildTarget iOS -testPlatform EditMode -testResults Reports/EditModeTests.xml"
-//    sh "${unityPath} -runTests -batchmode -buildTarget iOS -testPlatform EditMode -testResults Reports/EditModeTests.xml"
-//    sh "${unityPath} -runTests -batchmode -buildTarget iOS -testPlatform PlayMode -testResults Reports/PlayModeTests.xml"
   }
 }
