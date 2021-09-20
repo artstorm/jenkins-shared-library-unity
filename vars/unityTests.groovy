@@ -5,7 +5,7 @@
  * @param mode `EditMode` or `PlayMode`
  * @param platform `iOS` or `tvOS`.
  */
-def call(String unityVersion String mode, String platform) {
+def call(String unityVersion, String mode, String platform) {
   String unityPath = "/Applications/Unity/Hub/Editor/${unityVersion}/Unity.app/Contents/MacOS/Unity"
 
   lock('unity') {
