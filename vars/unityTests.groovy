@@ -1,6 +1,11 @@
 #!/usr/bin/env groovy
 
-def call(String unityVersion) {
+/**
+ * @param unityVersion The unityversion to use for testing
+ * @param mode `EditMode` or `PlayMode`
+ * @param platform `iOS` or `tvOS`.
+ */
+def call(String unityVersion String mode, String platform) {
   String unityPath = "/Applications/Unity/Hub/Editor/${unityVersion}/Unity.app/Contents/MacOS/Unity"
 
   lock('unity') {
@@ -8,11 +13,11 @@ def call(String unityVersion) {
     ${unityPath} \
     -runTests \
     -batchmode \
-    -buildTarget iOS \
-    -testPlatform EditMode \
-    -testResults Reports/EditModeTests.xml \
+    -buildTarget ${platform} \
+    -testPlatform ${mode} \
+    -testResults Reports/${platform}-${mode}Tests.xml \
     -forgetProjectPath \
-    -logFile log.txt \
+    -logFile Logs/${platform}-${mode}.log \
     -projectPath .
     """
 //    sh "${unityPath} -runTests -batchmode -buildTarget iOS -testPlatform EditMode -testResults Reports/EditModeTests.xml"
