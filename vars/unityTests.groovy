@@ -5,14 +5,14 @@ def call(String unityVersion) {
 
   lock('unity') {
     sh """
-    ${unityPath}
-    -runTests
-    -batchmode
-    -buildTarget iOS
-    -testPlatform EditMode
-    -testResults Reports/EditModeTests.xml
-    -forgetProjectPath
-    -logFile log.txt
+    ${unityPath} \
+    -runTests \
+    -batchmode \
+    -buildTarget iOS \
+    -testPlatform EditMode \
+    -testResults Reports/EditModeTests.xml \
+    -forgetProjectPath \
+    -logFile log.txt \
     -projectPath .
     """
 //    sh "${unityPath} -runTests -batchmode -buildTarget iOS -testPlatform EditMode -testResults Reports/EditModeTests.xml"
