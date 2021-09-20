@@ -13,12 +13,12 @@ def call(String unityVersion, String mode, String platform) {
     ${unityPath} \
     -runTests \
     -batchmode \
+    -projectPath . \
+    -forgetProjectPath \
     -buildTarget ${platform} \
     -testPlatform ${mode} \
     -testResults Reports/${platform}-${mode}Tests.xml \
-    -forgetProjectPath \
-    -logFile Logs/tests-${platform}-${mode}.log \
-    -projectPath .
+    -logFile Logs/tests-${platform}-${mode}.log
     """
   }
 }
