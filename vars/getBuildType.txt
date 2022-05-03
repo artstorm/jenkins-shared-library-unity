@@ -1,0 +1,6 @@
+# Get Build Type
+
+Retrieves the build type for the current running build.
+
+The build type is based on the git branch. A feature branch will for instance
+be an internal build.
