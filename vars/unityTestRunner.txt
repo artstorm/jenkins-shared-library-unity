@@ -1,0 +1,4 @@
+# Unity TestRunner
+
+Uses Unity's Test Runner to execute the test suite and optionally capture code coverage.
+A `UNITY_PATH` env variable must exist with the absolute path to Unity.
