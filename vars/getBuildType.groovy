@@ -3,7 +3,7 @@
 /**
  * Retrieves the build type for the current running build based on branch name.
  */
-def call(String forKey) {
+def call() {
   def branchName = env.GIT_BRANCH
 
   if (branchName.contains('/feature/')) {
