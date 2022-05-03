@@ -1,3 +1,5 @@
+#!/usr/bin/env groovy
+
 /**
  * Uses Unity's Test Runner to execute the test suite and capture code coverage.
  *

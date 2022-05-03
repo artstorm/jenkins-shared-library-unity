@@ -1,3 +1,5 @@
+#!/usr/bin/env groovy
+
 /**
  * Creates a merged report from Unitys PlayMode and EditMode test files.
  *

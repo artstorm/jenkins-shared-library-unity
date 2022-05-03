@@ -1,3 +1,5 @@
+#!/usr/bin/env groovy
+
 /**
  * Publishes the Unity Code Coverage Report so it's available from the job page.
  *

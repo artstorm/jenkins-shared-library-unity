@@ -1,3 +1,5 @@
+#!/usr/bin/env groovy
+
 /**
  * Sets name for the running job based on git branch name.
  *

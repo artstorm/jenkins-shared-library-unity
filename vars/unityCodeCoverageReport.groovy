@@ -1,3 +1,5 @@
+#!/usr/bin/env groovy
+
 /**
  * Notes regarding the Code Coverage report.
  *
