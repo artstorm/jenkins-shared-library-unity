@@ -9,7 +9,7 @@
  * @param useCodeCoverage Determine if a code coverage report should be generated.
  * @param assemblyFilter Filter which assemblies to include/exclude in code coverage report.
  */
-def unityTestRunner(String mode, String platform, Boolean useCodeCoverage = false, String assemblyFilter = '') {
+def call(String mode, String platform, Boolean useCodeCoverage = false, String assemblyFilter = '') {
   // Setup code coverage parameters to use with the testrunner, if `useCodeCoverage` is enabled.
   // https://docs.unity3d.com/Packages/com.unity.testtools.codecoverage@1.1/manual/CoverageBatchmode.html
   String codeCoverage = ''
