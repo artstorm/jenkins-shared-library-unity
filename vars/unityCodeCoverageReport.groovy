@@ -36,9 +36,10 @@
  * A `UNITY_PATH` env variable must exist with the absolute path to Unity.
  *
  * @param unityVersion The Unity version to use for generating the report.
- * @param assemblyFilter Filter which assemblies to include/exclude in code coverage report.
+ * @param assemblyFilters Filters which assemblies to include/exclude in code coverage report.
+ * @param pathFilters Filters which paths that should be included or excluded in the coverage report.
  */
-def call(String assemblyFilter = '') {
+def call(String assemblyFilters = '', String pathFilters = '') {
   /*
     - forgetProjectPath
         Don't save the current Project into the Unity hub history.
@@ -63,7 +64,7 @@ def call(String assemblyFilter = '') {
     -enableCodeCoverage \
     -coverageResultsPath Reports/CodeCoverage \
     -coverageHistoryPath "../../jobs/${env.JOB_BASE_NAME}/CodeCoverage History" \
-    -coverageOptions "generateHtmlReport;generateHtmlReportHistory;generateBadgeReport;assemblyFilters:${assemblyFilter}" \
+    -coverageOptions "generateHtmlReport;generateHtmlReportHistory;generateBadgeReport;assemblyFilters:${assemblyFilters};pathFilters:${pathFilters}" \
     -quit
     """
   }

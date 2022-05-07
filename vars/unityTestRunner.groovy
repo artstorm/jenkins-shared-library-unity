@@ -9,9 +9,10 @@
  * @param platform `iOS`, `tvOS`, or `StandaloneOSX` (Check Unity doc for more).
  *
  * @param useCodeCoverage Determine if a code coverage report should be generated.
- * @param assemblyFilter Filter which assemblies to include/exclude in code coverage report.
+ * @param assemblyFilters Filters which assemblies to include/exclude in code coverage report.
+ * @param pathFilters Filters which paths that should be included or excluded in the coverage report.
  */
-def call(String mode, String platform, Boolean useCodeCoverage = false, String assemblyFilter = '') {
+def call(String mode, String platform, Boolean useCodeCoverage = false, String assemblyFilters = '', String pathFilters = '') {
   // Setup code coverage parameters to use with the testrunner, if `useCodeCoverage` is enabled.
   // https://docs.unity3d.com/Packages/com.unity.testtools.codecoverage@1.1/manual/CoverageBatchmode.html
   String codeCoverage = ''
@@ -20,7 +21,7 @@ def call(String mode, String platform, Boolean useCodeCoverage = false, String a
     -debugCodeOptimization \
     -enableCodeCoverage \
     -coverageResultsPath Reports/CodeCoverage \
-    -coverageOptions "generateAdditionalMetrics;assemblyFilters:${assemblyFilter}"
+    -coverageOptions "generateAdditionalMetrics;assemblyFilters:${assemblyFilters};pathFilters:${pathFilters}"
     """
   }
 
