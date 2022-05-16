@@ -29,14 +29,14 @@
     Update issue comment.
   </dd>
 
-  <dt><code>createCheckRun(String name, String status, String url = null)</code></dt>
+  <dt><code>createCheckRun(String name, String status, String url = '')</code></dt>
   <dd>
     Create a check run.
 
     status: queued, in_progress, completed
   </dd>
 
-  <dt><code>updateCheckRun(id, String status = null, String conclusion = null)</code></dt>
+  <dt><code>updateCheckRun(id, String status = '', String conclusion = '')</code></dt>
   <dd>
     Update a check run.
 
