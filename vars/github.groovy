@@ -188,7 +188,11 @@ def createCheckRun(String name, String status, String url) {
       'name': name,
       'details_url': url,
       'external_id': env.BUILD_NUMBER,
-      'status': status
+      'status': status,
+      'output': [
+        'title': 'some title',
+        'summary': 'some summary'
+      ]
     ]
     String json = writeJSON returnText: true, json: payload
 
