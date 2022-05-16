@@ -4,8 +4,8 @@
   Get the <code>owner/repo</code> part from the project's git url.
   </dd>
 
-  <dt><code>git.commitShaShort()</code></dt>
+  <dt><code>github.pullRequest()</code></dt>
   <dd>
-  Get the short 7 character git commit sha for current commit.
+  Returns the pull request the current commit belongs to.
   </dd>
 </dl>
