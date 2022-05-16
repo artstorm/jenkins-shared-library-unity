@@ -1,0 +1,6 @@
+<dl>
+  <dt><code>tests.summary()</code></dt>
+  <dd>
+  Get Junit test result summary.
+  </dd>
+</dl>
