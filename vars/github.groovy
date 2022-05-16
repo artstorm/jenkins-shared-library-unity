@@ -186,10 +186,10 @@ def createCheckRun(String name, String status, String url = '') {
     def payload = [
       'head_sha': sha,
       'name': name,
-      'details_url': url,
       'external_id': env.BUILD_NUMBER,
       'status': status
     ]
+    if (details_url.length() > 0) payload['details_url'] = details_url
     String json = writeJSON returnText: true, json: payload
 
     def response = httpRequest(
@@ -223,12 +223,14 @@ def updateCheckRun(id, String status = '', String conclusion = '') {
                                     passwordVariable: 'GITHUB_ACCESS_TOKEN')]) {
     def sha = git.commitSha();
     def ownerRepo = ownerRepo()
+
     def payload = [
-      'head_sha': sha,
-      'status': status,
-      'conclusion': conclusion
+      'head_sha': sha
     ]
+    if (status.length() > 0) payload['status'] = status
+    if (conclusion.length() > 0) payload['conclusion'] = conclusion
     String json = writeJSON returnText: true, json: payload
+    echo "${json}"
 
     def response = httpRequest(
       customHeaders: [
