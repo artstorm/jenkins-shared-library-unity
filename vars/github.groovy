@@ -177,7 +177,7 @@ def updateIssueComment(int id, String body) {
  *
  * As we have an GitHub app, we use the checks API instead of using the older commit status API.
  */
-def createCheckrun(String name, String status, String url) {
+def createCheckRun(String name, String status, String url) {
   withCredentials([usernamePassword(credentialsId: 'githubapp-jenkins',
                                     usernameVariable: 'GITHUB_APP',
                                     passwordVariable: 'GITHUB_ACCESS_TOKEN')]) {
@@ -202,7 +202,7 @@ def createCheckrun(String name, String status, String url) {
       requestBody: json
     )
 
-    def checkrun = readJSON text: response.content
-    return checkrun.id
+    def checkRun = readJSON text: response.content
+    return checkRun.id
   }
 }
