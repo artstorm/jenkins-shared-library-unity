@@ -177,7 +177,7 @@ def updateIssueComment(int id, String body) {
  *
  * As we have an GitHub app, we use the checks API instead of using the older commit status API.
  */
-def createCheckRun(String name, String status, String url) {
+def createCheckRun(String name, String status, String url = '') {
   withCredentials([usernamePassword(credentialsId: 'githubapp-jenkins',
                                     usernameVariable: 'GITHUB_APP',
                                     passwordVariable: 'GITHUB_ACCESS_TOKEN')]) {
@@ -188,11 +188,7 @@ def createCheckRun(String name, String status, String url) {
       'name': name,
       'details_url': url,
       'external_id': env.BUILD_NUMBER,
-      'status': status,
-      'output': [
-        'title': 'some title',
-        'summary': 'some summary'
-      ]
+      'status': status
     ]
     String json = writeJSON returnText: true, json: payload
 
@@ -208,5 +204,40 @@ def createCheckRun(String name, String status, String url) {
 
     def checkRun = readJSON text: response.content
     return checkRun.id
+  }
+}
+
+/**
+ * Update a check run.
+ * https://docs.github.com/en/rest/checks/runs#update-a-check-run
+ *
+ * status: queued, in_progress, completed
+ * conclusion: action_required, cancelled, failure, neutral, success, skipped, stale, timed_out
+ * Providing conclusion will automatically set the status parameter to completed
+ *
+ * As we have an GitHub app, we use the checks API instead of using the older commit status API.
+ */
+def updateCheckRun(id, String status, String conclusion = '') {
+  withCredentials([usernamePassword(credentialsId: 'githubapp-jenkins',
+                                    usernameVariable: 'GITHUB_APP',
+                                    passwordVariable: 'GITHUB_ACCESS_TOKEN')]) {
+    def sha = git.commitSha();
+    def ownerRepo = ownerRepo()
+    def payload = [
+      'head_sha': sha,
+      'status': status,
+      'conclusion': conclusion
+    ]
+    String json = writeJSON returnText: true, json: payload
+
+    def response = httpRequest(
+      customHeaders: [
+        [name: 'Authorization', value: "Token " + GITHUB_ACCESS_TOKEN],
+        [name: 'accept', value: "application/vnd.github.v3+json"]
+      ],
+      httpMode: 'PATCH',
+      url: "https://api.github.com/repos/${ownerRepo}/check-runs/${id}",
+      requestBody: json
+    )
   }
 }

@@ -28,4 +28,21 @@
   <dd>
     Update issue comment.
   </dd>
+
+  <dt><code>createCheckRun(String name, String status, String url = '')</code></dt>
+  <dd>
+    Create a check run.
+
+    status: queued, in_progress, completed
+  </dd>
+
+  <dt><code>updateCheckRun(id, String status, String conclusion = '')</code></dt>
+  <dd>
+    Update a check run.
+
+    status: queued, in_progress, completed
+    conclusion: action_required, cancelled, failure, neutral, success, skipped, stale, timed_out
+    
+    Providing conclusion will automatically set the status parameter to completed
+  </dd>
 </dl>
