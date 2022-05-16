@@ -1,0 +1,11 @@
+<dl>
+  <dt><code>git.commitSha</code></dt>
+  <dd>
+  something
+  </dd>
+
+  <dt><code>git.commitShaShort</code></dt>
+  <dd>
+  something
+  </dd>
+</dl>
