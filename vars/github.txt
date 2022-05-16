@@ -36,7 +36,7 @@
     status: queued, in_progress, completed
   </dd>
 
-  <dt><code>updateCheckRun(id, String status, String conclusion = '')</code></dt>
+  <dt><code>updateCheckRun(id, String status = '', String conclusion = '')</code></dt>
   <dd>
     Update a check run.
 

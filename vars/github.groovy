@@ -217,7 +217,7 @@ def createCheckRun(String name, String status, String url = '') {
  *
  * As we have an GitHub app, we use the checks API instead of using the older commit status API.
  */
-def updateCheckRun(id, String status, String conclusion = '') {
+def updateCheckRun(id, String status = '', String conclusion = '') {
   withCredentials([usernamePassword(credentialsId: 'githubapp-jenkins',
                                     usernameVariable: 'GITHUB_APP',
                                     passwordVariable: 'GITHUB_ACCESS_TOKEN')]) {
