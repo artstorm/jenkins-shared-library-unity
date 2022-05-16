@@ -1,11 +1,31 @@
 <dl>
   <dt><code>github.ownerRepo()</code></dt>
   <dd>
-  Get the <code>owner/repo</code> part from the project's git url.
+    Get the <code>owner/repo</code> part from the project's git url.
   </dd>
 
   <dt><code>github.pullRequest()</code></dt>
   <dd>
-  Returns the pull request the current commit belongs to.
+    Returns the pull request the current commit belongs to.
+  </dd>
+
+  <dt><code>pullRequestComment(String body, String botName)</code></dt>
+  <dd>
+    Creates or updates the Jenkins bot issue comment for the pull request.
+  </dd>
+
+  <dt><code>issueComments(int number)</code></dt>
+  <dd>
+    Retrieves all comments for an issue/pull request.
+  </dd>
+
+  <dt><code>createIssueComment(int number, String body)</code></dt>
+  <dd>
+    Create issue comment.
+  </dd>
+
+  <dt><code>createIssueComment(int number, String body)</code></dt>
+  <dd>
+    Update issue comment.
   </dd>
 </dl>

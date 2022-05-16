@@ -19,6 +19,42 @@
  */
 
 /**
+ * Creates or updates the Jenkins bot issue comment for the pull request.
+ *
+ * @param String body The comment body text.
+ * @param String body The name of our Jenkins bot.
+ */
+def pullRequestComment(String body, String botName) {
+  withCredentials([usernamePassword(credentialsId: 'githubapp-jenkins',
+                                    usernameVariable: 'GITHUB_APP',
+                                    passwordVariable: 'GITHUB_ACCESS_TOKEN')]) {
+    // Check if the commit belongs to a PR.
+    def pullRequest = pullRequest()
+    // If it doesn't belong to a PR, we can stop here.
+    if (!pullRequest) return
+
+    // Get all issue comments belonging to the pull request.
+    def comments = issueComments(pullRequest.number)
+
+    // Check if our jenkins bot has already commented on the PR.
+    // If so, we will update the existing comment instead of creating a new.
+    def commentId
+    for (comment in comments) {
+      if (comment.user.login == botName) {
+        commentId = comment.id
+      }
+    }
+
+    // Create or update, depending on if a comment already existed.
+    if (commentId) {
+     updateIssueComment(commentId, body)
+    } else {
+     createIssueComment(pullRequest.number, body)
+    }
+  }
+}
+
+/**
  * Get the <owner/repo> part from the project's git url.
  *
  * Source: https://stackoverflow.com/a/69917658/1152087
@@ -57,5 +93,78 @@ def pullRequest()
 
     def pullRequests = readJSON text: response.content
     return pullRequests[0]    // returns null if empty array
+  }
+}
+
+/**
+ * Retrieves all comments for an issue/pull request.
+ * https://docs.github.com/en/rest/issues/comments#list-issue-comments
+ */
+def issueComments(int number)
+{
+  withCredentials([usernamePassword(credentialsId: 'githubapp-jenkins',
+                                    usernameVariable: 'GITHUB_APP',
+                                    passwordVariable: 'GITHUB_ACCESS_TOKEN')]) {
+    def ownerRepo = ownerRepo()
+
+    def response = httpRequest(
+      customHeaders: [
+        [name: 'Authorization', value: "Token " + GITHUB_ACCESS_TOKEN],
+        [name: 'accept', value: "application/vnd.github.v3+json"]
+      ],
+      httpMode: 'GET',
+      url: "https://api.github.com/repos/${ownerRepo}/issues/${number}/comments"
+    )
+
+    def comments = readJSON text: response.content
+    return comments
+  }
+}
+
+/**
+ * Create issue comment.
+ * https://docs.github.com/en/rest/issues/comments#create-an-issue-comment
+ */
+def createIssueComment(int number, String body) {
+  withCredentials([usernamePassword(credentialsId: 'githubapp-jenkins',
+                                    usernameVariable: 'GITHUB_APP',
+                                    passwordVariable: 'GITHUB_ACCESS_TOKEN')]) {
+    def payload = ['body': body]
+    String json = writeJSON returnText: true, json: payload
+    def ownerRepo = ownerRepo()
+
+    def response = httpRequest(
+      customHeaders: [
+        [name: 'Authorization', value: "Token " + GITHUB_ACCESS_TOKEN],
+        [name: 'accept', value: "application/vnd.github.v3+json"]
+      ],
+      httpMode: 'POST',
+      url: "https://api.github.com/repos/${ownerRepo}/issues/${number}/comments",
+      requestBody: json
+    )
+  }
+}
+
+/**
+ * Update issue comment.
+ * https://docs.github.com/en/rest/issues/comments#update-an-issue-comment
+ */
+def updateIssueComment(int id, String body) {
+  withCredentials([usernamePassword(credentialsId: 'githubapp-jenkins',
+                                    usernameVariable: 'GITHUB_APP',
+                                    passwordVariable: 'GITHUB_ACCESS_TOKEN')]) {
+    def payload = ['body': body]
+    String json = writeJSON returnText: true, json: payload
+    def ownerRepo = ownerRepo()
+
+    def response = httpRequest(
+      customHeaders: [
+        [name: 'Authorization', value: "Token " + GITHUB_ACCESS_TOKEN],
+        [name: 'accept', value: "application/vnd.github.v3+json"]
+      ],
+      httpMode: 'PATCH',
+      url: "https://api.github.com/repos/${ownerRepo}/issues/comments/${id}",
+      requestBody: json
+    )
   }
 }
