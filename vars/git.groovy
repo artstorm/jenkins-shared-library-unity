@@ -7,8 +7,8 @@
  * https://stackoverflow.com/q/69119132/1152087
  */
 
-def commitSha = commitSha()
-def commitShaShort = commitShaShort()
+def gcommitSha = commitSha()
+def gcommitShaShort = commitShaShort()
 
 /**
  * Get the full git commit sha for current commit.
