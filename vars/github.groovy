@@ -230,7 +230,6 @@ def updateCheckRun(id, String status = '', String conclusion = '') {
     if (status.length() > 0) payload['status'] = status
     if (conclusion.length() > 0) payload['conclusion'] = conclusion
     String json = writeJSON returnText: true, json: payload
-    echo "${json}"
 
     def response = httpRequest(
       customHeaders: [
