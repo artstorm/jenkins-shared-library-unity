@@ -7,11 +7,6 @@
  * https://stackoverflow.com/q/69119132/1152087
  */
 
-@groovy.transform.Field
-def gcommitSha = commitSha()
-@groovy.transform.Field
-def gcommitShaShort = commitShaShort()
-
 /**
  * Get the full git commit sha for current commit.
  */

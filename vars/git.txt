@@ -1,11 +1,11 @@
 <dl>
-  <dt><code>git.commitSha</code></dt>
+  <dt><code>git.commitSha()</code></dt>
   <dd>
-  something
+  Get the full git commit sha for current commit.
   </dd>
 
-  <dt><code>git.commitShaShort</code></dt>
+  <dt><code>git.commitShaShort()</code></dt>
   <dd>
-  something
+  Get the short 7 character git commit sha for current commit.
   </dd>
 </dl>
