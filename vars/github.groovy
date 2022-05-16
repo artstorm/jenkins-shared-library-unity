@@ -168,3 +168,41 @@ def updateIssueComment(int id, String body) {
     )
   }
 }
+
+/**
+ * Create a check run.
+ * https://docs.github.com/en/rest/checks/runs#create-a-check-run
+ *
+ * status: queued, in_progress, completed
+ *
+ * As we have an GitHub app, we use the checks API instead of using the older commit status API.
+ */
+def createCheckrun(String name, String status, String url) {
+  withCredentials([usernamePassword(credentialsId: 'githubapp-jenkins',
+                                    usernameVariable: 'GITHUB_APP',
+                                    passwordVariable: 'GITHUB_ACCESS_TOKEN')]) {
+    def sha = git.commitSha();
+    def ownerRepo = ownerRepo()
+    def payload = [
+      'head_sha': sha,
+      'name': name,
+      'details_url': url,
+      'external_id': env.BUILD_NUMBER,
+      'status': status
+    ]
+    String json = writeJSON returnText: true, json: payload
+
+    def response = httpRequest(
+      customHeaders: [
+        [name: 'Authorization', value: "Token " + GITHUB_ACCESS_TOKEN],
+        [name: 'accept', value: "application/vnd.github.v3+json"]
+      ],
+      httpMode: 'POST',
+      url: "https://api.github.com/repos/${ownerRepo}/check-runs",
+      requestBody: json
+    )
+
+    def checkrun = readJSON text: response.content
+    return checkrun.id
+  }
+}
