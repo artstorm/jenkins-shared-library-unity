@@ -189,7 +189,7 @@ def createCheckRun(String name, String status, String url = '') {
       'external_id': env.BUILD_NUMBER,
       'status': status
     ]
-    if (details_url.length() > 0) payload['details_url'] = details_url
+    if (url.length() > 0) payload['details_url'] = url
     String json = writeJSON returnText: true, json: payload
 
     def response = httpRequest(
