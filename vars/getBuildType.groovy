@@ -7,13 +7,17 @@ def call() {
   def branchName = env.GIT_BRANCH
 
   if (branchName.contains('/feature/')) {
-    return "Internal"
+    return "internal"
   }
 
   if (branchName.contains('/testflight/')) {
-    return "TestFlight"
+    return "testflight"
+  }
+
+  if (branchName.contains('/release/')) {
+    return "release"
   }
 
   // If the branch did not have special naming, we assume a Standard build.
-  return "Standard"
+  return "standard"
 }

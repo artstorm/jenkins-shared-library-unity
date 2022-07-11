@@ -7,14 +7,19 @@
  */
 def call() {
   switch(getBuildType()) {
-    case 'Internal':
+    case 'internal':
       currentBuild.displayName = "#${currentBuild.number} - Internal"
       // currentBuild.description = "Internal build."
       break
 
-    case 'TestFlight':
+    case 'testflight':
       currentBuild.displayName = "#${currentBuild.number} - TestFlight"
       // currentBuild.description = "TestFlight build."
+      break
+
+    case 'release':
+      currentBuild.displayName = "#${currentBuild.number} - Release"
+      // currentBuild.description = "Release build."
       break
 
     default:
