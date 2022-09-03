@@ -64,7 +64,7 @@ def call(String assemblyFilters = '', String pathFilters = '') {
     -enableCodeCoverage \
     -coverageResultsPath Reports/CodeCoverage \
     -coverageHistoryPath "../../jobs/${env.JOB_BASE_NAME}/CodeCoverage History" \
-    -coverageOptions "generateHtmlReport;generateHtmlReportHistory;generateBadgeReport;assemblyFilters:${assemblyFilters};pathFilters:${pathFilters}" \
+    -coverageOptions "generateHtmlReport;generateHtmlReportHistory;generateBadgeReport;generateAdditionalMetrics;assemblyFilters:${assemblyFilters};pathFilters:${pathFilters}" \
     -quit
     """
   }
