@@ -9,3 +9,6 @@ indent_size = 4
 [*.groovy]
 insert_final_newline = true
 trim_trailing_whitespace = true
+
+[*.yml]
+indent_size = 2
