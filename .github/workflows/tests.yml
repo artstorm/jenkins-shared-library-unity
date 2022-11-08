@@ -1,0 +1,19 @@
+name: Tests
+on: pull_request
+
+jobs:
+  gradle:
+    name: Gradle Test
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - uses: gradle/gradle-build-action@v2
+      with:
+        gradle-version: 7.5.1
+        arguments: test
+
+    - name: Adding Test Results Summary
+      run: |
+        echo '### Test Results' >> $GITHUB_STEP_SUMMARY
+        cat build/test-results.md >> $GITHUB_STEP_SUMMARY

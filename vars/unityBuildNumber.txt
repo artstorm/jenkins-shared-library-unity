@@ -1,0 +1,4 @@
+# Unity Build Number
+
+This function parses Unity's Project Settings and returns the build number set 
+for the Standalone build in Unity's `Project Settings > Player > Build`.
