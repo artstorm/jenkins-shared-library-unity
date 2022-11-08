@@ -1,8 +1,16 @@
-# Jenkins Pipeline Shared Library
+# Jenkins Shared Library for Unity
 
-- [Shared Libraries in Jenkins Doc](https://www.jenkins.io/doc/book/pipeline/shared-libraries/)
-
-
+<p align="center">
+    <a href="https://github.com/artstorm/jenkins-shared-library-unity/actions">
+        <img src="https://github.com/artstorm/jenkins-shared-library-unity/actions/workflows/tests.yml/badge.svg" alt="Test Suite" />    
+    </a>
+    <a href="https://twitter.com/artstorm">
+        <img src="https://img.shields.io/badge/twitter-@artstorm-blue.svg?logo=twitter&logoColor=ffffff&labelColor=383f47" alt="Twitter: @artstorm" />    
+    </a>
+    <a href="https://discord.gg/WJn7w5WaU9">
+        <img src="https://img.shields.io/badge/chat-discord-blue?logo=discord&logoColor=ffffff&labelColor=383f47" alt="Discord: Bitbebop" />    
+    </a>
+</p>
 
 ## Functions
 ### Unity
