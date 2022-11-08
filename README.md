@@ -206,6 +206,10 @@ github.createIssueComment(42, "some comment")
 #### GitHub Update Issue Comment
 Update issue comment.
 
+```groovy
+github.createIssueComment(42, "some updated comment")
+```
+
 #### GitHub Create Check Run
 Create a check run.
 
