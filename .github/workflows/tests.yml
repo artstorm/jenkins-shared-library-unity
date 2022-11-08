@@ -12,3 +12,8 @@ jobs:
       with:
         gradle-version: 7.5.1
         arguments: test
+
+    - name: Adding Test Results Summary
+      run: |
+        echo '### Test Results' >> $GITHUB_STEP_SUMMARY
+        cat build/test-results.md >> $GITHUB_STEP_SUMMARY
