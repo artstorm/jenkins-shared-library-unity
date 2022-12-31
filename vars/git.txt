@@ -1,16 +1,16 @@
 <dl>
-  <dt><code>git.branchName()</code></dt>
-  <dd>
-  Get the current branch name.
-  </dd>
+    <dt><code>git.branchName()</code></dt>
+    <dd>Get the current branch name.</dd>
 
-  <dt><code>git.commitSha()</code></dt>
-  <dd>
-  Get the full git commit sha for current commit.
-  </dd>
+    <dt><code>git.commitSha()</code></dt>
+    <dd>Get the full git commit sha for current commit.</dd>
 
-  <dt><code>git.commitShaShort()</code></dt>
-  <dd>
-  Get the short 7 character git commit sha for current commit.
-  </dd>
+    <dt><code>git.commitShaShort()</code></dt>
+    <dd>Get the short 7 character git commit sha for current commit.</dd>
+
+    <dt><code>git.getTrailerValue(String token)</code></dt>
+    <dd>
+        Get the trailer value for the specified token for the current commit
+        message.
+    </dd>
 </dl>

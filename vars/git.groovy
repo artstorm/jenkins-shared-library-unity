@@ -33,3 +33,14 @@ def branchName() {
 def commitShaShort() {
   return sh(returnStdout: true, script: "git rev-parse --short HEAD").trim();
 }
+
+/**
+ *  Get the trailer value for the specified token for the current commit message.
+ *
+ * Resources:
+ * - https://git-scm.com/docs/git-interpret-trailers
+ * - https://stackoverflow.com/q/69532088/1152087
+ */
+def getTrailerValue(String token) {
+  return sh(returnStdout: true, script: "git log -1 --pretty='%(trailers:key=${token},valueonly)'")
+}
