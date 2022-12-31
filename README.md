@@ -295,6 +295,32 @@ success {
 }
 ```
 
-## Dev
+## Development
 
-### Run the test suite
+Gradle is used to test the pipeline during development.
+
+### Running Tests
+
+The test suite is executed with:
+
+```sh
+./gradlew test
+```
+
+Then gradle is executed for the first time in a session a daemon is started. Manage the daemon with these commands.
+
+```sh
+## See running daemons
+gradle --status
+
+## Stop running daemons
+gradle --stop
+```
+
+### macOS
+
+Gradle needs Java runtime, and the version of Gradle used in this project uses Java 17. Install Java 17 with Homebrew and then set `JAVA_HOME` in the terminal, for the session, in the terminal.
+
+```
+export JAVA_HOME=/usr/local/opt/openjdk@17
+```
