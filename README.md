@@ -29,6 +29,7 @@ A Jenkins shared library with a collection of pipeline steps and functionality u
 | [git.branchName](#git-branch-name)                        | Get the current branch name.                                           |
 | [git.commitSha](#git-commit-sha)                          | Get the full git commit sha for current commit.                        |
 | [git.commitShaShort](#git-commit-sha-short)               | Get the short 7 character git commit sha for current commit.           |
+| [git.getTrailerValue](#git-trailer-value)                 | Get the trailer value for the specified token.                         |
 | [github.pullRequestComment](#github-pull-request-comment) | Creates or updates the Jenkins bot issue comment for the pull request. |
 | [github.ownerRepo](#github-owner-repo)                    | Get the `owner/repo` part from the project's git url.                  |
 | [github.pullRequest](#github-pull-request)                | Returns the pull request the current commit belongs to.                |
@@ -209,6 +210,16 @@ Get the short 7 character git commit sha for current commit.
 ```groovy
 steps {
     echo "Git short commit SHA: ${git.commitShaShort()}"
+}
+```
+
+#### Git Trailer Value
+
+Get the [trailer](https://git-scm.com/docs/git-interpret-trailers) value for the specified token for the current commit.
+
+```groovy
+steps {
+    echo "Git commit message trailer value : ${git.getTrailerValue('some-token')}"
 }
 ```
 
