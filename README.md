@@ -22,22 +22,25 @@ A Jenkins shared library with a collection of pipeline steps and functionality u
 
 ### Generic
 
-| Function                                                  | Summary                                                                |
-| --------------------------------------------------------- | ---------------------------------------------------------------------- |
-| [getBuildType](#get-build-type)                           | Retrieves the build type for the current running build.                |
-| [setJobDisplayName](#set-job-display-name)                | Sets the display name based on the build type.                         |
-| [git.branchName](#git-branch-name)                        | Get the current branch name.                                           |
-| [git.commitSha](#git-commit-sha)                          | Get the full git commit sha for current commit.                        |
-| [git.commitShaShort](#git-commit-sha-short)               | Get the short 7 character git commit sha for current commit.           |
-| [git.getTrailerValue](#git-trailer-value)                 | Get the trailer value for the specified token.                         |
-| [github.pullRequestComment](#github-pull-request-comment) | Creates or updates the Jenkins bot issue comment for the pull request. |
-| [github.ownerRepo](#github-owner-repo)                    | Get the `owner/repo` part from the project's git url.                  |
-| [github.pullRequest](#github-pull-request)                | Returns the pull request the current commit belongs to.                |
-| [github.issueComments](#github-issue-comments)            | Retrieves all comments for an issue/pull request.                      |
-| [github.createIssueComment](#github-create-issue-comment) | Create issue comment.                                                  |
-| [github.updateIssueComment](#github-update-issue-comment) | Update issue comment.                                                  |
-| [github.createCheckRun](#github-create-check-run)         | Create a check run.                                                    |
-| [github.updateCheckRun](#github-update-check-run)         | Update a check run.                                                    |
+| Function                                                  | Summary                                                                               |
+| --------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| [getBuildType](#get-build-type)                           | Retrieves the build type for the current running build.                               |
+| [setJobDisplayName](#set-job-display-name)                | Sets the display name based on the build type.                                        |
+| [git.branchName](#git-branch-name)                        | Get the current branch name.                                                          |
+| [git.commitSha](#git-commit-sha)                          | Get the full git commit sha for current commit.                                       |
+| [git.commitShaShort](#git-commit-sha-short)               | Get the short 7 character git commit sha for current commit.                          |
+| [git.getTrailerValue](#git-trailer-value)                 | Get the trailer value for the specified token.                                        |
+| [github.pullRequestComment](#github-pull-request-comment) | Creates or updates the Jenkins bot issue comment for the pull request.                |
+| [github.ownerRepo](#github-owner-repo)                    | Get the `owner/repo` part from the project's git url.                                 |
+| [github.pullRequest](#github-pull-request)                | Returns the pull request the current commit belongs to.                               |
+| [github.issueComments](#github-issue-comments)            | Retrieves all comments for an issue/pull request.                                     |
+| [github.createIssueComment](#github-create-issue-comment) | Create issue comment.                                                                 |
+| [github.updateIssueComment](#github-update-issue-comment) | Update issue comment.                                                                 |
+| [github.createCheckRun](#github-create-check-run)         | Create a check run.                                                                   |
+| [github.updateCheckRun](#github-update-check-run)         | Update a check run.                                                                   |
+| [timers.start](#timers-start)                             | Creates and starts a new timer with the specified name.                               |
+| [timers.stop](#timers-stop)                               | Stops the timer with the specified name.                                              |
+| [timers.getDuration](#timers-get-duration)                | Gets the duration in ms between start and stop for the timer with the specified name. |
 
 ## Installation
 
@@ -304,6 +307,36 @@ success {
         github.updateCheckRun(checkRunIosId, '', 'success')
     }
 }
+```
+
+#### Timers Start
+
+Creates and starts a new timer with the specified name.
+
+Multiple timers can be created and started to store the duration for different steps of the pipeline.
+
+```groovy
+timers.start("unity.${platform}")
+buildUnity(platform)
+timers.stop("unity.${platform}")
+```
+
+#### Timers Stop
+
+Stops the timer with the specified name.
+
+```groovy
+timers.start("unity.${platform}")
+buildUnity(platform)
+timers.stop("unity.${platform}")
+```
+
+#### Timers Get Duration
+
+Gets the duration in ms between start and stop for the timer with the specified name.
+
+```groovy
+echo "Unity iOS Build Duration: ${timers.getDuration('unity.iOS')}"
 ```
 
 ## Development

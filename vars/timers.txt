@@ -1,0 +1,14 @@
+<dl>
+  <dt><code>timers.start(String timerName)</code></dt>
+  <dd>
+  Creates and starts a new timer with the specified name.
+  </dd>
+  <dt><code>timers.stop(String timerName)</code></dt>
+  <dd>
+  Stops the timer with the specified name.
+  </dd>
+  <dt><code>timers.getDuration(String timerName)</code></dt>
+  <dd>
+  Gets the duration in ms between start and stop for the timer with the specified name.
+  </dd>
+</dl>
