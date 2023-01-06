@@ -180,7 +180,7 @@ def updateIssueComment(int id, String body) {
  *
  * As we have an GitHub app, we use the checks API instead of using the older commit status API.
  */
-def createCheckRun(String name, String status, String url = '') {
+def createCheckRun(String name, String status = '', String conclusion = '', String url = '') {
   withCredentials([usernamePassword(credentialsId: 'githubapp-jenkins',
                                     usernameVariable: 'GITHUB_APP',
                                     passwordVariable: 'GITHUB_ACCESS_TOKEN')]) {
@@ -190,8 +190,9 @@ def createCheckRun(String name, String status, String url = '') {
       'head_sha': sha,
       'name': name,
       'external_id': env.BUILD_NUMBER,
-      'status': status
     ]
+    if (status.length() > 0) payload['status'] = status
+    if (conclusion.length() > 0) payload['conclusion'] = conclusion
     if (url.length() > 0) payload['details_url'] = url
     String json = writeJSON returnText: true, json: payload
 
