@@ -286,7 +286,9 @@ Start a check run for a specific build build.
 
 ```groovy
 steps {
-    checkRunIosId = github.createCheckRun("build_ios", "queued")
+    script {
+        github.createCheckRun('Build iOS', 'queued')
+    }
 }
 ```
 
@@ -295,16 +297,22 @@ steps {
 Update a check run.
 
 ```groovy
+steps {
+    script {
+        github.updateCheckRun('Build iOS', 'in_progress')
+    }
+}
+
 post {
 failure {
     script {
-        github.updateCheckRun(checkRunIosId, '', 'failure')
+        github.updateCheckRun('Build iOS', '', 'failure')
     }
 }
 
 success {
     script {
-        github.updateCheckRun(checkRunIosId, '', 'success')
+        github.updateCheckRun('Build iOS', '', 'success')
     }
 }
 ```

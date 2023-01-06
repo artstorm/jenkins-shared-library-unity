@@ -18,6 +18,9 @@
  * - git.commitSha()
  */
 
+// Dictionary that holds the id for each created checkrun. name => id.
+@groovy.transform.Field private def checkRuns = [:]
+
 /**
  * Creates or updates the Jenkins bot issue comment for the pull request.
  *
@@ -177,7 +180,7 @@ def updateIssueComment(int id, String body) {
  *
  * As we have an GitHub app, we use the checks API instead of using the older commit status API.
  */
-def createCheckRun(String name, String status, String url = '') {
+def createCheckRun(String name, String status = '', String conclusion = '', String url = '') {
   withCredentials([usernamePassword(credentialsId: 'githubapp-jenkins',
                                     usernameVariable: 'GITHUB_APP',
                                     passwordVariable: 'GITHUB_ACCESS_TOKEN')]) {
@@ -187,8 +190,9 @@ def createCheckRun(String name, String status, String url = '') {
       'head_sha': sha,
       'name': name,
       'external_id': env.BUILD_NUMBER,
-      'status': status
     ]
+    if (status.length() > 0) payload['status'] = status
+    if (conclusion.length() > 0) payload['conclusion'] = conclusion
     if (url.length() > 0) payload['details_url'] = url
     String json = writeJSON returnText: true, json: payload
 
@@ -203,7 +207,7 @@ def createCheckRun(String name, String status, String url = '') {
     )
 
     def checkRun = readJSON text: response.content
-    return checkRun.id
+    this.checkRuns[name] = checkRun.id
   }
 }
 
@@ -217,12 +221,13 @@ def createCheckRun(String name, String status, String url = '') {
  *
  * As we have an GitHub app, we use the checks API instead of using the older commit status API.
  */
-def updateCheckRun(id, String status = '', String conclusion = '') {
+def updateCheckRun(String name, String status = '', String conclusion = '') {
   withCredentials([usernamePassword(credentialsId: 'githubapp-jenkins',
                                     usernameVariable: 'GITHUB_APP',
                                     passwordVariable: 'GITHUB_ACCESS_TOKEN')]) {
     def sha = git.commitSha();
     def ownerRepo = ownerRepo()
+    def id = this.checkRuns[name]
 
     def payload = [
       'head_sha': sha
