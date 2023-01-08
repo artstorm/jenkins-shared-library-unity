@@ -41,6 +41,8 @@ A Jenkins shared library with a collection of pipeline steps and functionality u
 | [timers.start](#timers-start)                             | Creates and starts a new timer with the specified name.                               |
 | [timers.stop](#timers-stop)                               | Stops the timer with the specified name.                                              |
 | [timers.getDuration](#timers-get-duration)                | Gets the duration in ms between start and stop for the timer with the specified name. |
+| [utils.getDirectorySize](#utils-get-directory-size)       | Get the size of the provided directory in bytes.                                      |
+| [utils.getFileSize](#utils-get-file-size)                 | Get the size of the provided file in bytes.                                           |
 
 ## Installation
 
@@ -345,6 +347,22 @@ Gets the duration in ms between start and stop for the timer with the specified 
 
 ```groovy
 echo "Unity iOS Build Duration: ${timers.getDuration('unity.iOS')}"
+```
+
+#### Utils Get Directory Size
+
+Get the size of the provided directory in bytes.
+
+```groovy
+def size = utils.getDirectorySize('build.app')
+```
+
+#### Utils Get File Size
+
+Get the size of the provided file in bytes.
+
+```groovy
+def size = utils.getFileSize('build.ipa')
 ```
 
 ## Development
