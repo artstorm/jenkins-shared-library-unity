@@ -1,0 +1,10 @@
+<dl>
+  <dt><code>utils.getFileSize(String path)</code></dt>
+  <dd>
+  Get the size of the provided file in bytes.
+  </dd>
+  <dt><code>utils.getDirectorySize(String path)</code></dt>
+  <dd>
+  Get the size of the provided directory in bytes.
+  </dd>
+</dl>
