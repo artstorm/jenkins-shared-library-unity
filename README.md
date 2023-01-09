@@ -38,6 +38,8 @@ A Jenkins shared library with a collection of pipeline steps and functionality u
 | [github.updateIssueComment](#github-update-issue-comment) | Update issue comment.                                                                 |
 | [github.createCheckRun](#github-create-check-run)         | Create a check run.                                                                   |
 | [github.updateCheckRun](#github-update-check-run)         | Update a check run.                                                                   |
+| [influxdb.addMeasurement](#influxfb-add-measurement)      | Add a measurement for writing to InfluxDB.                                            |
+| [influxdb.write](#influxfb-write-measurements)            | Write all added measurements to InfluxDB.                                             |
 | [timers.start](#timers-start)                             | Creates and starts a new timer with the specified name.                               |
 | [timers.stop](#timers-stop)                               | Stops the timer with the specified name.                                              |
 | [timers.getDuration](#timers-get-duration)                | Gets the duration in ms between start and stop for the timer with the specified name. |
@@ -316,6 +318,37 @@ success {
     script {
         github.updateCheckRun('Build iOS', '', 'success')
     }
+}
+```
+
+#### InfluxFB Add Measurement
+
+Add a measurement for writing to InfluxDB.
+
+```groovy
+influxdb.addMeasurement("build",
+    [
+        platform: platform,
+        build_type: buildType
+    ],
+    [
+        size: size,
+        duration_unity: timers.getDuration("Unity.${platform}"),
+        duration_xcode: timers.getDuration("Xcode.${platform}"),
+        jenkins_build_number: currentBuild.number,
+        unity_build_number: unityBuildNumber(),
+        commit_sha: env.GIT_COMMIT_SHA_SHORT
+    ]
+)
+```
+
+#### InfluxFB Write Measurements
+
+Write all added measurements to InfluxDB.
+
+```groovy
+withCredentials([string(credentialsId: 'influxdb', variable: 'INFLUXDB_TOKEN')]) {
+    influxdb.write(env.INFLUXDB_HOST, env.INFLUXDB_ORG, env.INFLUXDB_BUCKET, INFLUXDB_TOKEN)
 }
 ```
 
