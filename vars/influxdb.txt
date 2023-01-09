@@ -1,0 +1,10 @@
+<dl>
+  <dt><code>influxdb.addMeasurement(String measurement, Map tags, Map fields)</code></dt>
+  <dd>
+  Add a measurement for writing to InfluxDB.
+  </dd>
+  <dt><code>influxdb.write(String host, String org, String bucket, String token)</code></dt>
+  <dd>
+  Write all added measurements to InfluxDB.
+  </dd>
+</dl>
