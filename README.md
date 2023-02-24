@@ -1,6 +1,7 @@
 # Jenkins Shared Library for Unity
 
 [![Test Suite](https://github.com/artstorm/jenkins-shared-library-unity/actions/workflows/tests.yml/badge.svg)](https://github.com/artstorm/jenkins-shared-library-unity/actions)
+[![Mastodon: @johansteen](https://img.shields.io/badge/mastodon-@johansteen-blue.svg?logo=mastodon&logoColor=ffffff&labelColor=383f47)](https://mastodon.gamedev.place/@johansteen)
 [![Twitter: @artstorm](https://img.shields.io/badge/twitter-@artstorm-blue.svg?logo=twitter&logoColor=ffffff&labelColor=383f47)](https://twitter.com/artstorm)
 [![Discord: Bitbebop](https://img.shields.io/badge/chat-discord-blue?logo=discord&logoColor=ffffff&labelColor=383f47)](https://discord.gg/WJn7w5WaU9)
 
@@ -323,7 +324,13 @@ success {
 
 #### InfluxFB Add Measurement
 
-Add a measurement for writing to InfluxDB.
+Add a measurement for writing to InfluxDB. The data type for each field in teh measurement is set with a string.
+
+| value | Data type |
+| ----- | --------- |
+| `"f"` | float     |
+| `"i"` | integer   |
+| `"s"` | string    |
 
 ```groovy
 influxdb.addMeasurement("build",
@@ -332,12 +339,13 @@ influxdb.addMeasurement("build",
         build_type: buildType
     ],
     [
-        size: size,
-        duration_unity: timers.getDuration("Unity.${platform}"),
-        duration_xcode: timers.getDuration("Xcode.${platform}"),
-        jenkins_build_number: currentBuild.number,
-        unity_build_number: unityBuildNumber(),
-        commit_sha: env.GIT_COMMIT_SHA_SHORT
+        code_coverage: ["f", coverage.lineCoverage],
+        size: ["i", size],
+        duration_unity: ["i", timers.getDuration("Unity.${platform}")],
+        duration_xcode: ["i", timers.getDuration("Xcode.${platform}")],
+        jenkins_build_number: ["i", currentBuild.number],
+        unity_build_number: ["i", unityBuildNumber()],
+        commit_sha: ["s", env.GIT_COMMIT_SHA_SHORT]
     ]
 )
 ```
@@ -426,4 +434,21 @@ Gradle needs Java runtime, and the version of Gradle used in this project uses J
 
 ```
 export JAVA_HOME=/usr/local/opt/openjdk@17
+```
+
+### Debug Output
+
+During development it can be useful to get output from tests to the console.
+
+```groovy
+@Test
+void foo_SomeBar_GetSomeBaz() {
+    println(someObjectToDebug)
+}
+```
+
+Enable log info level to display `println` statements in the test output.
+
+```sh
+./gradlew test --info
 ```
