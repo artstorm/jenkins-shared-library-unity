@@ -1,6 +1,7 @@
 # Jenkins Shared Library for Unity
 
 [![Test Suite](https://github.com/artstorm/jenkins-shared-library-unity/actions/workflows/tests.yml/badge.svg)](https://github.com/artstorm/jenkins-shared-library-unity/actions)
+[![Mastodon: @johansteen](https://img.shields.io/badge/mastodon-@johansteen-blue.svg?logo=mastodon&logoColor=ffffff&labelColor=383f47)](https://mastodon.gamedev.place/@johansteen)
 [![Twitter: @artstorm](https://img.shields.io/badge/twitter-@artstorm-blue.svg?logo=twitter&logoColor=ffffff&labelColor=383f47)](https://twitter.com/artstorm)
 [![Discord: Bitbebop](https://img.shields.io/badge/chat-discord-blue?logo=discord&logoColor=ffffff&labelColor=383f47)](https://discord.gg/WJn7w5WaU9)
 
