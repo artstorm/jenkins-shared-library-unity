@@ -25,16 +25,15 @@ class InfluxDB {
         }
 
         def fieldsString = fields.collect {
-            switch(it.value[0]) {
-                case "f":
+            // Note for future similar functionality:
+            // I tried using a switch statement instead of else if. While that
+            // works in the test ebv, the Jenkins instance couldn't handle it.
+            if (it.value[0] == "f") {
                 /$it.key=${it.value[1]}/
-                break;
-                case "i":
+            } else if (it.value[0] == "i") {
                 /$it.key=${it.value[1]}i/
-                break;
-                case "s":
+            } else if (it.value[0] == "s") {
                 /$it.key="${it.value[1]}"/
-                break;
             }
         } join ","
 
