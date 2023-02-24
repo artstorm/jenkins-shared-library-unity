@@ -427,3 +427,20 @@ Gradle needs Java runtime, and the version of Gradle used in this project uses J
 ```
 export JAVA_HOME=/usr/local/opt/openjdk@17
 ```
+
+### Debug Output
+
+During development it can be useful to get output from tests to the console.
+
+```groovy
+@Test
+void foo_SomeBar_GetSomeBaz() {
+    println(someObjectToDebug)
+}
+```
+
+Enable log info level to display `println` statements in the test output.
+
+```sh
+./gradlew test --info
+```
